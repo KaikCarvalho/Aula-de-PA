@@ -36,33 +36,40 @@ function realizarSaque(valor) {
 
     let restante = valor;
 
-    let notas100 = Math.floor(restante / 100);
-    restante %= 100;
+    let notas100 = 0;
+    let notas50 = 0;
+    let notas20 = 0;
+    let notas10 = 0;
 
-    let notas50 = Math.floor(restante / 50);
-    restante %= 50;
+    while (restante >= 100) {
+        notas100++;
+        restante -= 100;
+    }
 
-    let notas20 = Math.floor(restante / 20);
-    restante %= 20;
+    while (restante >= 50) {
+        notas50++;
+        restante -= 50;
+    }
 
-    let notas10 = Math.floor(restante / 10);
+    while (restante >= 20) {
+        notas20++;
+        restante -= 20;
+    }
+
+    while (restante >= 10) {
+        notas10++;
+        restante -= 10;
+    }
 
     conta.saldo -= valor;
 
-    conta.historico.push({
-        operacao: "Saque",
-        valor: valor
-    });
-
-    console.log(`\nSaque realizado: R$ ${valor}`);
+    console.log(`Saque realizado: R$ ${valor}`);
     console.log("Cédulas entregues:");
 
     if (notas100 > 0) console.log(`${notas100} nota(s) de R$100`);
     if (notas50 > 0) console.log(`${notas50} nota(s) de R$50`);
     if (notas20 > 0) console.log(`${notas20} nota(s) de R$20`);
     if (notas10 > 0) console.log(`${notas10} nota(s) de R$10`);
-
-    console.log(`Novo saldo: R$ ${conta.saldo}`);
 }
 
 if (validarAcesso("1234", "56789", "123456")) {
